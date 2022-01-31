@@ -23,18 +23,6 @@ import mx.kodemia.bookodemiasael.model.DataClassHome
 class RecyclerViewHome(val listaLibros: MutableList<DataClassHome>) :
     RecyclerView.Adapter<RecyclerViewHome.Libros>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHome.Libros {
-        val layoutInflater = LayoutInflater.from(parent.context)
-        return Libros(layoutInflater.inflate(R.layout.item_card_view, parent, false))
-    }
-
-    override fun onBindViewHolder(holder: Libros, position: Int) {
-        holder.info(listaLibros[position])
-    }
-
-    override fun getItemCount(): Int = listaLibros.size
-
-
     class Libros(val view: View) : RecyclerView.ViewHolder(view) {
         val cardView: MaterialCardView = view.findViewById(R.id.item_card_view)
         val book: ImageView = view.findViewById(R.id.iv_book)
@@ -50,12 +38,24 @@ class RecyclerViewHome(val listaLibros: MutableList<DataClassHome>) :
             Glide.with(view).load(listaLibros.book).error(R.drawable.libro_2)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .into(book)
-
         }
     }
+
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHome.Libros {
+        val layoutInflater = LayoutInflater.from(parent.context)
+        return Libros(layoutInflater.inflate(R.layout.item_card_view, parent, false))
+    }
+
+    override fun onBindViewHolder(holder: Libros, position: Int) {
+        holder.info(listaLibros[position])
+    }
+
+    override fun getItemCount(): Int = listaLibros.size
 
     fun insertarLibro(datosLibro: DataClassHome) {
         this.listaLibros.add(datosLibro)
         notifyItemInserted(itemCount)
     }
+
 }

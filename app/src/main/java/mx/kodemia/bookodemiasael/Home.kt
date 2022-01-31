@@ -3,6 +3,7 @@ package mx.kodemia.bookodemiasael
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_home.*
 import mx.kodemia.bookodemiasael.adaptadores.RecyclerViewHome
@@ -20,14 +21,13 @@ class Home : AppCompatActivity() {
         setContentView(R.layout.activity_home)
 
         addLibros()
-        initRecyclerAgregados()
 
-        tv_regresar_home.setOnClickListener{
+        tv_regresar_home.setOnClickListener {
             startActivity(Intent(this, Login::class.java))
         }
     }
 
-    private fun initRecyclerAgregados() {
+    /* fun initRecyclerAgregados() {
         val myLinearLayoutManager = object : LinearLayoutManager(this) {
             override fun canScrollVertically(): Boolean {
                 return false
@@ -36,15 +36,30 @@ class Home : AppCompatActivity() {
         recyclerView_Home.layoutManager = myLinearLayoutManager
         recyclerView_Home.adapter = adapterAgregados
         recyclerView_Home.setHasFixedSize(true)
+        }
+     */
 
-    }
-    private fun addLibros(){
-        librosLista.add(DataClassHome(R.drawable.libro_1, "El principito", "Desconocido", "Fantasia"))
-        librosLista.add(DataClassHome(R.drawable.libro_2, "La metamorfosis", "Franz Kafka", "Metafora"))
-        librosLista.add(DataClassHome(R.drawable.libro_2, "El Evangelio del mal", "Sabe", "Misterio/Terror"))
+
+    private fun addLibros() {
+
+        librosLista.add(DataClassHome(R.drawable.libro_1, "Las Cronicas de Narnia", "Sabe", "Fantasia"))
         librosLista.add(DataClassHome(R.drawable.libro_2, "La Sombra", "Sabe", "Suspenso"))
-        librosLista.add(DataClassHome(R.drawable.libro_2, "La musica del silencio", "Mark", "Fantasia"))
+        librosLista.add(DataClassHome(R.drawable.libro_1, "El Evangelio del mal","Sabe", "Suspenso"))
+        librosLista.add(DataClassHome(R.drawable.libro_2,"La musica del silencio", "Mark", "Fantasia"))
 
+
+
+        recyclerView_Home.layoutManager = LinearLayoutManager(this)
+        recyclerView_Home.setHasFixedSize(true)
+        adapterAgregados = RecyclerViewHome(librosLista)
+        recyclerView_Home.adapter = adapterAgregados
     }
 
+    fun item_card(view: View) {
+        val intent = Intent(this, Detalles::class.java)
+        startActivity(intent)
+    }
 }
+
+
+
